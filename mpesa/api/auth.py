@@ -58,7 +58,8 @@ class MpesaBase:
 
         Returns:
             Optional[str]: The access token to be used with the "Bearer" authorization
-            header for subsequent API requests, or None if authentication fails.
+            header
+                           for subsequent API requests, or None if authentication fails.
 
         Raises:
             ValueError: Raised if app_key or app_secret is not provided.
