@@ -1,5 +1,5 @@
 import httpx
-from typing import optional, Dict, Any
+from typing import Optional, Dict, Any
 
 from mpesa.api.auth import MpesaBase
 
@@ -8,21 +8,22 @@ class TransactionStatus(MpesaBase):
     def __init__(
             self,
             env: str="sandbox",
-            app_key: str,
-            app_secret: str,
+            app_key: Optional[str]=None,
+            app_secret: Optional[str]=None,
             sandbox_url: str="https://sandbox.safaricom.co.ke",
             live_url: str="https://safaricom.co.ke"
         ):
 
-        super().__init__(self, env, app_key, app_secret, sandbox_url, live_url)
-        self.authentication_token: str = self.authenticate()
+        super().__init__(env, app_key, app_secret, sandbox_url, live_url)
+        self.authentication_token: Optional[str] = self.authenticate()
 
-    def transaction_status(
+    def check_transaction_status(
             self,
             security_credential: str,
             originator_conversation_id: str,
             party_a: str,
             identifier_type: str,
+            transaction_id: str,
             remarks: str,
             initiator: str,
             result_url: str,
@@ -36,6 +37,7 @@ class TransactionStatus(MpesaBase):
                 originator_conversation_id: (str): unique identifier for the transaction request
                 party_a (str): Organization/MSISDN receiving the transaction - MSISDN or shortcode.
                 identifier_type (str): Type of organization receiving the transaction 1-MSISDN. 2-Till Number, 3-Shortcode.
+                transaction_id (str): Unique identifier to identify a transaction on Mpesa
                 remarks (str): Comments that are sent along with the transaction(maximum 100 characters).
                 initiator (str): This is the credential/username used to authenticate the transaction request.
                 result_url (str): The url that handles information from the mpesa API call.
@@ -53,7 +55,7 @@ class TransactionStatus(MpesaBase):
         # Validation for required credentials
         if not self.app_key or not self.app_secret:
             raise ValueError(
-                "App key and app secret must be provided for authentication"
+                "App key and app secret must be provided for authentication."
             )
 
         payload = {
@@ -76,17 +78,20 @@ class TransactionStatus(MpesaBase):
 
         # Determine te base url based on environment
         base_url = self.live_url if self.env=="production" else self.sandbox_url
-        saf_url = f"{base_url}/mpesa/stkpushquery/v3/query"
+        saf_url = f"{base_url}/mpesa/transactionstatus/v1/query"
 
         with httpx.Client() as client:
             try:
                 response = client.post(saf_url, headers=headers, json=payload)
-                respose.raise_for_status()
+                response.raise_for_status()
+
                 return response.json()
+
             except httpx.HTTPStatusError as exc:
-                print(f"Error occured while checking transaction status: {exc)")
+                print(f"Error occured while checking transaction status: {response.json()}")
                 raise exc
-            except (HTTPStatusError, ValueError) as e:
+
+            except (httpx.RequestError, ValueError) as e:
                 raise ValueError(
                     "An error occured during retrieval of transaction status process."
                 ) from e
