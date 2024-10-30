@@ -93,7 +93,7 @@ class B2C(MpesaBase):
 
         # Define URL based on environment
         base_url = self.live_url if self.env == "production" else self.sandbox_url
-        saf_url = f"{base_url}/mpesa/b2c/v3/paymentreques"
+        saf_url = f"{base_url}/mpesa/b2c/v3/paymentrequest"
 
         # Execute the request
         with httpx.Client() as client:

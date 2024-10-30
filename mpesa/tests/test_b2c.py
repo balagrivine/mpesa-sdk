@@ -14,8 +14,6 @@ class TestB2C(unittest.TestCase):
             live_url="https://safaricom.co.ke",
         )
 
-        self.token = self.b2c.authenticate()
-
     def test_transact(self):
         conversation_id = str(uuid4())
         response = self.b2c.transact(
@@ -33,4 +31,6 @@ class TestB2C(unittest.TestCase):
         )
 
         self.assertEqual(response["OriginatorConversationID"], conversation_id)
-        print(f"\n{response}\n")
+
+if __name__ == "__main__":
+    unittest.main()
