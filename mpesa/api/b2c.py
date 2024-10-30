@@ -93,17 +93,20 @@ class B2C(MpesaBase):
 
         # Define URL based on environment
         base_url = self.live_url if self.env == "production" else self.sandbox_url
-        saf_url = f"{base_url}/mpesa/b2c/v3/paymentrequest"
+        saf_url = f"{base_url}/mpesa/b2c/v3/paymentreques"
 
         # Execute the request
         with httpx.Client() as client:
             try:
                 response = client.post(saf_url, headers=headers, json=payload)
                 response.raise_for_status()  # Ensures HTTP errors are raised
+
                 return response.json()
+
             except httpx.HTTPStatusError as exc:
-                print(f"HTTP error during B2C transaction: {exc}")
+                print(f"HTTP error during B2C transaction: {response.json()}")
                 raise exc
+
             except (ValueError, httpx.RequestError) as e:
                 print(f"Error occurred during B2C transaction: {e}")
                 raise ValueError(
