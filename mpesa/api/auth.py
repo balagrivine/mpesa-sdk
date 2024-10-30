@@ -38,6 +38,7 @@ class MpesaBase:
             sandbox_url (str): URL for the sandbox environment (default is Safaricom's sandbox).
             live_url (str): URL for the live production environment (default is Safaricom's live URL).
         """
+
         self.env = env
         self.app_key = app_key
         self.app_secret = app_secret
