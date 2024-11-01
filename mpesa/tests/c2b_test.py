@@ -1,19 +1,16 @@
 import pytest
 import respx
-from httpx import Response
-from mpesa.api.auth import MpesaBase
-from mpesa.api.c2b import C2B  # Adjust this import path as necessary
+from httpx import Response, HTTPStatusError
+from mpesa.api.c2b import C2B
 
 
 @pytest.fixture
 def c2b_instance():
-    # Create an instance of C2B with mock credentials
     return C2B(env="sandbox", app_key="test_key", app_secret="test_secret")
 
 
 @respx.mock
 def test_register_success(c2b_instance):
-    # Mock the C2B registration endpoint with a successful response
     respx.post("https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl").mock(
         return_value=Response(
             200,
@@ -21,7 +18,6 @@ def test_register_success(c2b_instance):
         )
     )
 
-    # Call the register method with test data
     response = c2b_instance.register(
         shortcode=123456,
         response_type="Completed",
@@ -42,7 +38,7 @@ def test_register_http_error(c2b_instance):
     )
 
     # Expect an HTTPStatusError due to the 500 response
-    with pytest.raises(httpx.HTTPStatusError):
+    with pytest.raises(HTTPStatusError):
         c2b_instance.register(
             shortcode=123456,
             response_type="Completed",
@@ -82,7 +78,7 @@ def test_simulate_http_error(c2b_instance):
     )
 
     # Expect an HTTPStatusError due to the 500 response
-    with pytest.raises(httpx.HTTPStatusError):
+    with pytest.raises(HTTPStatusError):
         c2b_instance.simulate(
             shortcode=123456,
             command_id="CustomerPayBillOnline",

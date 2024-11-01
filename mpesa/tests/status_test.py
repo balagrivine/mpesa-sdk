@@ -1,6 +1,6 @@
 import pytest
 import respx
-from httpx import Response
+from httpx import Response, HTTPStatusError
 from mpesa.api.status import TransactionStatus  # Adjust the import path as necessary
 
 
@@ -51,7 +51,7 @@ def test_check_transaction_status_http_error(transaction_status_instance):
     )
 
     # Expect an HTTPStatusError due to the 500 response
-    with pytest.raises(httpx.HTTPStatusError):
+    with pytest.raises(HTTPStatusError):
         transaction_status_instance.check_transaction_status(
             security_credential="test_security_credential",
             originator_conversation_id="test_originator_id",

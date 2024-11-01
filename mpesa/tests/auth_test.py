@@ -1,7 +1,9 @@
 import pytest
 import respx
-from httpx import Response
-from mpesa.api import MpesaBase  # Ensure MpesaBase is accessible in your import path
+from httpx import Response, HTTPStatusError
+from mpesa.api.auth import (
+    MpesaBase,
+)
 
 
 @pytest.fixture
@@ -38,8 +40,9 @@ def test_authenticate_failure_401(mpesa_instance):
     ).mock(return_value=Response(401, json={"error": "invalid_client"}))
 
     # Expect an HTTPStatusError due to unauthorized access
-    with pytest.raises(Exception) as exc_info:
+    with pytest.raises(HTTPStatusError) as exc_info:
         mpesa_instance.authenticate()
+
     assert exc_info.value.response.status_code == 401
 
 

@@ -5,13 +5,16 @@ from mpesa.api.auth import MpesaBase
 
 class C2B(MpesaBase):
     """
-    C2B (Customer to Business) class interacts with Mpesa's C2B API to register URLs and simulate transactions.
+    C2B (Customer to Business) class interacts with Mpesa's C2B API to register URLs
+    and simulate transactions.
 
     Attributes:
-        authentication_token (Optional[str]): Access token for authenticating requests to the C2B API.
+        authentication_token (Optional[str]): Access token for authenticating requests
+        to the C2B API.
 
     Methods:
-        register(): Registers validation and confirmation URLs with Mpesa for C2B transactions.
+        register(): Registers validation and confirmation URLs with Mpesa for C2B
+        transactions.
         simulate(): Simulates a C2B transaction using provided transaction details.
     """
 
@@ -27,7 +30,8 @@ class C2B(MpesaBase):
         Initializes the C2B instance and authenticates using the MpesaBase class.
 
         Args:
-            env (str): The environment in which to run; options are "sandbox" or "production".
+            env (str): The environment in which to run; options are "sandbox" or
+              "production".
             app_key (Optional[str]): Consumer key for the Mpesa API.
             app_secret (Optional[str]): Consumer secret for the Mpesa API.
             sandbox_url (Optional[str]): URL for Mpesa's sandbox environment.
@@ -48,12 +52,16 @@ class C2B(MpesaBase):
 
         Args:
             shortcode (int): The shortcode of the organization.
-            response_type (str): Default response type if a transaction times out ("Complete" or "Cancel").
-            confirmation_url (str): URL that receives confirmation for completed transactions.
-            validation_url (str): URL that receives validation requests before transaction confirmation.
+            response_type (str): Default response type if a transaction times out
+            ("Complete" or "Cancel").
+            confirmation_url (str): URL that receives confirmation for completed
+              transactions.
+            validation_url (str): URL that receives validation requests before
+            transaction confirmation.
 
         Returns:
-            Dict[str, Any]: Parsed JSON response from Mpesa API indicating registration status.
+            Dict[str, Any]: Parsed JSON response from Mpesa API indicating registration
+            status.
 
         Raises:
             ValueError: Raised for invalid or unsuccessful response from Mpesa API.
@@ -96,13 +104,17 @@ class C2B(MpesaBase):
 
         Args:
             shortcode (int): The shortcode of the organization.
-            command_id (str): Unique command type, e.g., "CustomerPayBillOnline" or "CustomerBuyGoodsOnline".
+            command_id (str): Unique command type, e.g., "CustomerPayBillOnline" or
+            "CustomerBuyGoodsOnline".
             amount (int): Transaction amount.
-            msisdn (int): Phone number initiating the transaction in MSISDN format (12 digits).
-            bill_ref_number (Optional[str]): Optional bill reference number for the transaction.
+            msisdn (int): Phone number initiating the transaction in MSISDN format
+            (12 digits).
+            bill_ref_number (Optional[str]): Optional bill reference number for the
+              transaction.
 
         Returns:
-            Dict[str, Any]: Parsed JSON response from the Mpesa API containing transaction details.
+            Dict[str, Any]: Parsed JSON response from the Mpesa API containing
+            transaction details.
 
         Raises:
             ValueError: Raised for invalid or unsuccessful response from Mpesa API.
