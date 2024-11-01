@@ -33,7 +33,7 @@ class Balance(MpesaBase):
             party_a (str): Till number being queried.
             identifier_type (int): Type of organization receiving the transaction.
                                    Options: 1 - MSISDN, 2 - Till Number, 4 -
-                                   Organization short code
+                                  Organization short code
             remarks (str): Comments sent with the transaction (max 100 characters).
             queue_timeout_url (str): URL that handles timed-out transactions.
             result_url (str): URL that receives results from the M-Pesa API call.
