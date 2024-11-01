@@ -1,7 +1,7 @@
 import pytest
 import respx
 from httpx import Response
-from MpesaBase import MpesaBase  # Ensure MpesaBase is accessible in your import path
+from mpesa.api import MpesaBase  # Ensure MpesaBase is accessible in your import path
 
 
 @pytest.fixture

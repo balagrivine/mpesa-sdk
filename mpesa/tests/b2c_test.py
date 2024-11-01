@@ -1,6 +1,6 @@
 import pytest
 import respx
-from httpx import Response
+from httpx import Response, HTTPStatusError
 from mpesa.api.b2c import B2C  # Adjust this import path if necessary
 
 
@@ -47,7 +47,7 @@ def test_transact_http_error(b2c_instance):
     )
 
     # Expect an HTTPStatusError due to the 500 response
-    with pytest.raises(httpx.HTTPStatusError):
+    with pytest.raises(HTTPStatusError):
         b2c_instance.transact(
             originator_conversation_id="12345",
             initiator_name="test_initiator",
