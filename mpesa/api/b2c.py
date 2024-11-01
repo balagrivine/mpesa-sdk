@@ -5,13 +5,16 @@ from mpesa.api.auth import MpesaBase
 
 class B2C(MpesaBase):
     """
-    B2C class interacts with Mpesa's B2C API to facilitate transactions from an M-Pesa short code to a registered phone number.
+    B2C class interacts with Mpesa's B2C API to facilitate transactions from an M-Pesa
+    short code to a registered phone number.
 
     Attributes:
-        authentication_token (Optional[str]): Access token for authenticating requests to the B2C API.
+        authentication_token (Optional[str]): Access token for authenticating requests
+        to the B2C API.
 
     Methods:
-        transact(): Performs a B2C transaction using the specified details and returns the response data.
+        transact(): Performs a B2C transaction using the specified details and returns
+        the response data.
     """
 
     def __init__(
@@ -26,7 +29,8 @@ class B2C(MpesaBase):
         Initializes the B2C instance and authenticates using the MpesaBase class.
 
         Args:
-            env (str): The environment in which to run; options are "sandbox" or "production".
+            env (str): The environment in which to run; options are "sandbox" or
+              "production".
             app_key (Optional[str]): Consumer key for the Mpesa API.
             app_secret (Optional[str]): Consumer secret for the Mpesa API.
             sandbox_url (str): URL for Mpesa's sandbox environment.
@@ -56,7 +60,8 @@ class B2C(MpesaBase):
             originator_conversation_id (str): Unique ID to track the transaction.
             initiator_name (str): Username for transaction authentication.
             security_credential (str): Encrypted credential from the developer portal.
-            command_id (str): Type of payment; options include "SalaryPayment", "BusinessPayment", "PromotionPayment".
+            command_id (str): Type of payment; options include "SalaryPayment",
+            "BusinessPayment", "PromotionPayment".
             amount (str): Amount to be sent to the customer.
             party_a (int): Shortcode or MSISDN of the transaction initiator.
             party_b (int): MSISDN of the transaction recipient.

@@ -17,7 +17,8 @@ class MpesaBase:
         token (Optional[str]): Access token obtained upon successful authentication.
 
     Methods:
-        authenticate() -> Optional[str]: Authenticates with Mpesa and retrieves an access token.
+        authenticate() -> Optional[str]: Authenticates with Mpesa and retrieves a
+        access token.
     """
 
     def __init__(
@@ -29,14 +30,17 @@ class MpesaBase:
         live_url: str = "https://safaricom.co.ke",
     ):
         """
-        Initializes an instance of MpesaBase with the specified environment and credentials.
+        Initializes an instance of MpesaBase with the specified environment and
+        credentials.
 
         Args:
             env (str): Environment to use; options are "sandbox" or "production".
             app_key (Optional[str]): Consumer key from Mpesa's developer portal.
             app_secret (Optional[str]): Consumer secret from Mpesa's developer portal.
-            sandbox_url (str): URL for the sandbox environment (default is Safaricom's sandbox).
-            live_url (str): URL for the live production environment (default is Safaricom's live URL).
+            sandbox_url (str): URL for the sandbox environment (default is Safaricom's
+            sandbox).
+            live_url (str): URL for the live production environment (default is
+            Safaricom's live URL).
         """
 
         self.env = env
