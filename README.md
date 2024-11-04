@@ -2,8 +2,7 @@
 **This is an sdk providing convenient access to the Safaricom MPESA Daraja API for applications written in Python3.**
 
 ## Prerequisites
-1. Python3 >= 3.7
-2. 
+1. Python >= 3.7
 
 ## Installation
 Use pip
