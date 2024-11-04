@@ -54,7 +54,7 @@ The following are the corresponding API classes
 This API generates the tokens for authenticating your subsequent API calls
 
 ````Python
-from mpesa-sdk.api.auth import MpesaBase
+from mpesa.api.auth import MpesaBase
 
 mpesa_api = MpesaBase(
     consumer_key='<your consumer key>',
@@ -68,7 +68,7 @@ mpesa_api.authenticate()
 This API enables you to register the callback URLs via which you shall receive notifications for payments to your pay bill/till number.
 
 ````python
-from mpesa-sdk.api.c2b import C2B
+from mpesa.api.c2b import C2B
 
 c2b = C2B(
     consumer_key='<your consumer key>',
