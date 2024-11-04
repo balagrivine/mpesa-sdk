@@ -51,6 +51,7 @@ All calls are done by httpx, so for the response structure check httpx documenta
 
 # Methods
 * [Authorization](https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials)
+
 This API generates the tokens for authenticating your subsequent API calls
 
 ````Python
@@ -58,6 +59,7 @@ mpesa_api.authenticate()
 ````
 
 * [Customer To Business (C2B)](https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl)
+
 This API enables you to register the callback URLs via which you shall receive notifications for payments to your pay bill/till number.
 
 ````python
