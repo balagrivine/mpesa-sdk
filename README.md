@@ -34,8 +34,8 @@ mpesa_api.authenticate()
 
 # Supported APIs
 * Authorization
-* Customer to Business (B2C)
-* Business to Customer (C2B)
+* Customer to Business (C2B)
+* Business to Customer (B2C)
 * Transaction Status
 * Account Balance
 
@@ -47,14 +47,19 @@ The following are the corresponding API classes
 * TransactionStatus
 * Balance
 
-All calls are done by httpx, so for the response structure check httpx documentation.
-
 # Methods
+
 * [Authorization](https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials)
 
 This API generates the tokens for authenticating your subsequent API calls
 
 ````Python
+from mpesa-sdk.api.auth import MpesaBase
+
+mpesa_api = MpesaBase(
+    consumer_key='<your consumer key>',
+    consumer_secret='<your consumer secret>'
+)
 mpesa_api.authenticate()
 ````
 
