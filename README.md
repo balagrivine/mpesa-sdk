@@ -22,7 +22,7 @@ You need the following before getting to use this library:
 ## Getting started
 This is the first API you will call to authenticate subsequent api calls.
 ```python
-from mpesa-sdk.api.auth import MpesaBase
+from mpesa import MpesaBase
 
 mpesa_api = MpesaBase(
     consumer_key='<your consumer key>',
