@@ -3,9 +3,24 @@ import respx
 from httpx import Response, HTTPStatusError
 from mpesa.api.b2c import B2C  # Adjust this import path if necessary
 
+@pytest.fixture
+def mock_authentication():
+    with respx.mock() as respx_mock:
+        # Mock the authentication endpoint with a successful response
+        respx_mock.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials").mock(
+            return_value=Response(
+                200,
+                json={
+                    "access_token": "mock_token",
+                    "expires_in": 3599
+                }
+            )
+        )
+        yield
+
 
 @pytest.fixture
-def b2c_instance():
+def b2c_instance(mock_authentication):
     # Mock credentials and instance of B2C for testing
     return B2C(env="sandbox", app_key="test_key", app_secret="test_secret")
 
@@ -67,7 +82,7 @@ def test_transact_http_error(b2c_instance):
 def test_transact_missing_token():
     # Test that a missing authentication token raises an error
     with pytest.raises(
-        ValueError, match="An error occurred during the transaction process"
+        ValueError, match="App key and app secret must be provided for authentication"
     ):
         B2C(env="sandbox").transact(
             originator_conversation_id="12345",

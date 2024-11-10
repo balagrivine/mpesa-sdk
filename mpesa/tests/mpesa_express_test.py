@@ -7,7 +7,7 @@ from mpesa.api.mpesa_express import MpesaExpress
 
 @pytest.fixture
 def mock_authentication():
-    # Start the `respx` mocker for all requests in the test
+    # Start the respx mocker for all requests in the test
     with respx.mock() as respx_mock:
         # Mock the authentication endpoint with a fake response
         respx_mock.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials").mock(

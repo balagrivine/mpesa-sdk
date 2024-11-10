@@ -3,9 +3,22 @@ import respx
 from httpx import Response, HTTPStatusError
 from mpesa.api.c2b import C2B
 
+@pytest.fixture
+def mock_authentication():
+    with respx.mock() as respx_mock:
+        respx_mock.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials").mock(
+            return_value=Response(
+                200,
+                json={
+                    "access_token": "mock_token",
+                    "expires_in": 3599
+                }
+            )
+        )
+        yield
 
 @pytest.fixture
-def c2b_instance():
+def c2b_instance(mock_authentication):
     return C2B(env="sandbox", app_key="test_key", app_secret="test_secret")
 
 

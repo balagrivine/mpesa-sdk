@@ -3,9 +3,22 @@ import respx
 from httpx import Response, HTTPStatusError
 from mpesa.api.balance import Balance
 
+@pytest.fixture
+def mock_authentication():
+    with respx.mock() as respx_mock:
+        respx_mock.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials").mock(
+            return_value=Response(
+                200,
+                json={
+                    "access_token": "mock_token",
+                    "expires_in": 3599
+                }
+            )
+        )
+        yield
 
 @pytest.fixture
-def balance_instance():
+def balance_instance(mock_authentication):
     return Balance(env="sandbox", app_key="test_key", app_secret="test_secret")
 
 
@@ -55,12 +68,11 @@ def test_get_balance_http_error(balance_instance):
 
 @respx.mock
 def test_get_balance_value_error(balance_instance):
-    incomplete_instance = Balance(env="sandbox")
 
     with pytest.raises(
         ValueError, match="App key and app secret must be provided for authentication."
     ):
-        incomplete_instance.get_balance(
+        Balance(env="sandbox").get_balance(
             initiator="test_initiator",
             security_credential="test_security_credential",
             party_a="600000",
