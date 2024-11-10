@@ -48,7 +48,7 @@ The following are the corresponding API classes
 
 # Methods
 
-* [Authorization](https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials)
+* Authorization
 
 This API generates the tokens for authenticating your subsequent API calls
 
@@ -62,7 +62,7 @@ mpesa_api = MpesaBase(
 mpesa_api.authenticate()
 ````
 
-* [Customer To Business (C2B)](https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl)
+* Customer To Business (C2B)
 
 This API enables you to register the callback URLs via which you shall receive notifications for payments to your pay bill/till number.
 
@@ -76,7 +76,7 @@ c2b = C2B(
 
 # Registers confirmation and validation URLs with Mpesa for C2B transactions.
 c2b.register(
-    short_code='XXXXXX',
+    short_code=600798,
     response_type='Completed',
     confirmation_url='<your confirmation url>',
     validation_url='<your validation url>'
@@ -84,7 +84,7 @@ c2b.register(
 
 # This initiates a C2B transaction between an end-user and a company (paybill or till number)
 c2b.simulate(
-    short_code='XXXXXX',
+    short_code=600987,
     command_id='<your command id>',
     amount=10,
     msisdn='2547XXXXX'
@@ -108,6 +108,7 @@ b2c = B2C(
 b2c.transact(
     originator_conversation_id="conversation_id",
     initiator_name="testapi",
+    security_credential="security_credential",
     command_id="BusinessPayment",
     amount=10,
     party_a=600798,
@@ -135,6 +136,7 @@ status.check_transaction_status(
     originator_conversation_id="conversation_id",
     party_a=600798,
     initiator="testapi",
+    security_credential="security_credential",
     identifier_type=4,
     remarks="Remarks",
     transaction_id="transaction_id",
