@@ -32,24 +32,17 @@ class TransactionStatus(MpesaBase):
     ) -> Dict[str, Any]:
         """Checks the status of a transaction through Mpesa API.
 
-        Args:
-            security_credential (str): Encrypted credential of the user getting
-            transaction status
-            originator_conversation_id: (str): unique identifier for the transaction
-            request
-            party_a (str): Organization/MSISDN receiving the transaction - MSISDN or
-            shortcode.
-            identifier_type (str): Type of organization receiving the transaction
-            1-MSISDN. 2-Till Number, 3-Shortcode.
-            transaction_id (str): Unique identifier to identify a transaction on Mpesa
-            remarks (str): Comments that are sent along with the transaction(maximum
-            100 characters).
-            initiator (str): This is the credential/username used to authenticate the
-            transaction request.
-            result_url (str): The url that handles information from the mpesa API call.
-            queue_timeout_url (str): The url that stores information of timed out
-            transactions.
-            occassion (str):
+            Args:
+                security_credential (str): Encrypted credential of the user getting transaction status
+                originator_conversation_id: (str): unique identifier for the transaction request
+                party_a (str): Organization/MSISDN receiving the transaction - MSISDN or shortcode.
+                identifier_type (int): Type of organization receiving the transaction 1-MSISDN. 2-Till Number, 3-Shortcode.
+                transaction_id (str): Unique identifier to identify a transaction on Mpesa
+                remarks (str): Comments that are sent along with the transaction(maximum 100 characters).
+                initiator (str): This is the credential/username used to authenticate the transaction request.
+                result_url (str): The url that handles information from the mpesa API call.
+                queue_timeout_url (str): The url that stores information of timed out transactions.
+                occassion (str):
 
         Returns:
             Dict[str, Any]: Parsed JSON response from the API transaction status
