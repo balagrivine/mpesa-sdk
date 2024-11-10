@@ -6,30 +6,30 @@ from mpesa.api.auth import MpesaBase
 
 class TransactionStatus(MpesaBase):
     def __init__(
-            self,
-            env: str="sandbox",
-            app_key: Optional[str]=None,
-            app_secret: Optional[str]=None,
-            sandbox_url: str="https://sandbox.safaricom.co.ke",
-            live_url: str="https://safaricom.co.ke"
-        ):
+        self,
+        env: str = "sandbox",
+        app_key: Optional[str] = None,
+        app_secret: Optional[str] = None,
+        sandbox_url: str = "https://sandbox.safaricom.co.ke",
+        live_url: str = "https://safaricom.co.ke",
+    ):
 
         super().__init__(env, app_key, app_secret, sandbox_url, live_url)
         self.authentication_token: Optional[str] = self.authenticate()
 
     def check_transaction_status(
-            self,
-            security_credential: str,
-            originator_conversation_id: str,
-            party_a: str,
-            identifier_type: int,
-            transaction_id: str,
-            remarks: str,
-            initiator: str,
-            result_url: str,
-            queue_timeout_url: str,
-            occassion: Optional[str]=None
-        ) -> Dict[str, Any]:
+        self,
+        security_credential: str,
+        originator_conversation_id: str,
+        party_a: str,
+        identifier_type: str,
+        transaction_id: str,
+        remarks: str,
+        initiator: str,
+        result_url: str,
+        queue_timeout_url: str,
+        occassion: Optional[str] = None,
+    ) -> Dict[str, Any]:
         """Checks the status of a transaction through Mpesa API.
 
             Args:
@@ -44,12 +44,12 @@ class TransactionStatus(MpesaBase):
                 queue_timeout_url (str): The url that stores information of timed out transactions.
                 occassion (str):
 
-            Returns:
-                Dict[str, Any]: Parsed JSON response from the API transaction status
+        Returns:
+            Dict[str, Any]: Parsed JSON response from the API transaction status
 
-            Raises:
-                ValueError: Raised for invalid or unsuccessful response from the API
-                httpx.HTTPStatusError: Raised for HTTP errors during the transaction
+        Raises:
+            ValueError: Raised for invalid or unsuccessful response from the API
+            httpx.HTTPStatusError: Raised for HTTP errors during the transaction
         """
 
         # Validation for required credentials
@@ -69,15 +69,15 @@ class TransactionStatus(MpesaBase):
             "QueueTimeOutURL": queue_timeout_url,
             "ResultURL": result_url,
             "TransactionID": originator_conversation_id,
-            "Occasion": occassion
+            "Occasion": occassion,
         }
         headers = {
             "Authorization": f"Bearer {self.authentication_token}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
 
         # Determine te base url based on environment
-        base_url = self.live_url if self.env=="production" else self.sandbox_url
+        base_url = self.live_url if self.env == "production" else self.sandbox_url
         saf_url = f"{base_url}/mpesa/transactionstatus/v1/query"
 
         with httpx.Client() as client:
@@ -88,7 +88,6 @@ class TransactionStatus(MpesaBase):
                 return response.json()
 
             except httpx.HTTPStatusError as exc:
-                print(f"Error occured while checking transaction status: {response.json()}")
                 raise exc
 
             except (httpx.RequestError, ValueError) as e:
