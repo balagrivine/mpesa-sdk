@@ -37,6 +37,8 @@ mpesa_api.authenticate()
 * Business to Customer (B2C)
 * Transaction Status
 * Account Balance
+* Mpesa Express
+* Reversals
 
 # API Classes
 The following are the corresponding API classes
@@ -72,8 +74,8 @@ This API enables you to register the callback URLs via which you shall receive n
 from mpesa import C2B
 
 c2b = C2B(
-    consumer_key='<your consumer key>',
-    consumer_secret='<your consumer secret>'
+    consumer_key='<your_consumer_key>',
+    consumer_secret='<your_consumer_secret>'
 )
 
 # Registers confirmation and validation URLs with Mpesa for C2B transactions.
@@ -87,7 +89,7 @@ c2b.register(
 # This initiates a C2B transaction between an end-user and a company (paybill or till number)
 c2b.simulate(
     short_code=600987,
-    command_id='<your_command_id>',
+    command_id='<command_id',
     amount=10,
     msisdn='2547XXXXX'
 )
@@ -130,8 +132,8 @@ This class checks the status of a transaction
 from mpesa import TransactionStatus
 
 status = TransactionStatus(
-    app_key='<your_app_key>',
-    app_secret='<your_app_secret>'
+    app_key='<your_consumer_key>',
+    app_secret='<your_consumer_secret>'
 )
 
 status.check_transaction_status(
@@ -156,8 +158,8 @@ This class enquire the balance on an M-Pesa BuyGoods (Till Number)
 from mpesa import Balance
 
 balance = Balance(
-    app_key='<your_app_key>',
-    app_secret='<your_app_secret>'
+    app_key='<your_consumer_key>',
+    app_secret='<your_consumer_secret>'
 )
 
 balance.get_balance(
@@ -180,8 +182,8 @@ and checks the status of the transaction
 from mpesa import MpesaExpress
 
 mpesa_express = MpesaExpress(
-    app_key='<your_app_key>',
-    app_secret='<your_app_secret>'
+    app_key='<your_consumer_key>',
+    app_secret='<your_consumer_secret>'
 )
 
 # Initiate an stk push to a customer
@@ -214,8 +216,8 @@ revesrse a C2B transactions
 from mpesa import Reversal
 
 reversal = Reversal(
-    app_key='<your_app_key>',
-    app_secret='<your_app_secret>'
+    app_key='<your_consumer_key>',
+    app_secret='<your_consumer_secret>'
 )
 
 reversal.reverse(
