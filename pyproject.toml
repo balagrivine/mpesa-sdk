@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mpesa_sdk"
+version = "0.1.0"
+dependencies = [
+  "httpx>=0.27.2",
+  "typing_extensions>=4.12.2",
+]
+requires-python = ">=3.8"
+authors = [
+  {name = "Grivine Bala", email = "grivine@mail.com"},
+]
+maintainers = [
+  {name = "Grivine Bala", email = "grivine@mail.com"}
+]
+description = "This is an sdk providing convenient access to the Safaricom MPESA Daraja API for applications written in Python3."
+readme = "README.md"
+license = "MIT"
+keywords = ["MPESA", "Payments"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python",
+  "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/balagrivine/mpesa-sdk"
+Repository = "https://github.com/balagrivine/mpesa-sdk.git"
+"Bug Tracker" = "https://github.com/balagrivine/mpesa-sdk/issues"
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "flake8",
+  "pre-commit>=4.0.1",
+  "pytest>=8.3.3",
+  "respx>=0.20.1",
+]
+
